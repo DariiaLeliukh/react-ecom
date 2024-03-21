@@ -99,18 +99,35 @@ export default class MainComponent extends Component {
   };
 
   getCustomerRows = () => {
-    return this.state.customers.map((customer) => {
+    return this.state.customers.map((customer, index) => {
       return (
         <tr key={customer.id}>
           <td>{customer.id}</td>
           <td>
             <img src={customer.photo} alt="Customer" />
+
+            <div>
+              <button
+                className="btn btn-sm btn-secondary"
+                onClick={() => this.onChangePictureClick(customer, index)}
+              >
+                Change Picture
+              </button>
+            </div>
           </td>
           <td>{customer.name}</td>
           <td>{this.getPhoneToRender(customer.phone)}</td>
           <td>{customer.address.city}</td>
         </tr>
       );
+    });
+  };
+
+  onChangePictureClick = (customer, index) => {
+    let customerArray = this.state.customers;
+    customerArray[index].photo = "https://picsum.photos/id/1010/60";
+    this.setState({
+      customers: customerArray,
     });
   };
 }
